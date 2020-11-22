@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+
+    <title>Sistema de Seguridad</title>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="d-flex justify-content-center">
+                        <div class="align-self-center card text-center bg-light mt-5">
+                            <div class="card-body bg-light">
+                                <h3>SISTEMA DE SEGURIDAD</h3>
+                            </div>
+                            <div class="card-footer bg-light">
+                                <button id="btnCerrar" class="btn btn-dark btn-block">SALIR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    const {ipcRenderer} = require('electron');
+    const btnCerrar=document.getElementById("btnCerrar");
+    btnCerrar.onclick=function(){
+        ipcRenderer.send('proyecto:cerrar');
+    }
+</script>
+
+</html>

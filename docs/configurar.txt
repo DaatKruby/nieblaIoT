@@ -1,0 +1,6 @@
+PARA CONFIGURAR QUE SE CONECTA A LA NUBE ABRIR ARCHIVO "EnlaceNube.js"
+DENTRO DE ESE ARCHIVO CAMBIAR "hostname", "port" y si necesario las dos variables "path"
+
+PARA CONFIGURAR EL MQTT: 
+ENTRAR AL ARCHIVO "ClienteMQTT.js" y modificar "host" y "puerto" dentro de la clase
+TAMBIEN PARA QUE FUNCIONE EL MQTT DEBERA TENER EL BROKER "MOSQUITO" INSTALADO Y CORRIENDO
