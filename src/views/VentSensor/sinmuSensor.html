@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sinmulacion de Sensor</title>
-    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <script src="./vista.js"></script>
 </head>
 
 <body>
@@ -13,7 +14,7 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="text-center">
-                    <img src="../img/arduino-icon.jpg" alt="Sensor" width="150px" height="150px">
+                    <img src="../../img/arduino-icon.jpg" alt="Sensor" width="150px" height="150px">
                     <h3>Sinmulador de Sensor</h3>
                 </div>
                 <div class="mt-3">
@@ -30,15 +31,5 @@
         </div>
     </div>
 </body>
-
-<script>
-    const {ipcRenderer} = require('electron');
-    const btnEnviar = document.getElementById("btnEnviar");
-    btnEnviar.onclick = function () {
-        var idSensor=document.getElementById("idSensor").value;
-        idSensor=parseInt(idSensor,10);
-        ipcRenderer.send('proyecto:envioMQTT', {id:idSensor});
-    }
-</script>
 
 </html>

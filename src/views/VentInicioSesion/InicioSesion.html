@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
-    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <script src="./vista.js"></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
                 <div class="panel panel-login mt-5">
                     <div class="panel-heading">
                         <div class="text-center">
-                            <img src="../img/pngwing.com.png" alt="" width="150px" height="150px">
+                            <img src="../../img/pngwing.com.png" alt="" width="150px" height="150px">
                             <h3>Log In</h3>
                         </div>
                         <hr>
@@ -52,37 +53,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const {ipcRenderer} = require('electron');
-        const form = document.querySelector('form');
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const nombreUsuario = document.querySelector('#username').value;
-            const contrasena = document.querySelector('#password').value;
-
-            const datosSesion = {
-                nombreUsuario: nombreUsuario,
-                contrasena: contrasena
-            }
-
-            ipcRenderer.send('sesion:checar', datosSesion);
-        });
-
-        ipcRenderer.on('sesion:respuesta', (e, respuesta) => {
-            if (respuesta.aceptado !== true) {
-                alert("No se ha podido iniciar sesion");
-            }
-        });
-
-        ipcRenderer.on('sesion:sesionguardada', (e, respuesta) => {
-            const nombreUsuario = document.querySelector('#username');
-            const contrasena = document.querySelector('#password');
-            nombreUsuario.value = respuesta.usuario;
-            contrasena.value = respuesta.contrasena;
-        });
-    </script>
 
 </body>
 

@@ -18,7 +18,7 @@ app.on("ready", () => {
     });
 
     pantallaPrincipal.loadURL(url.format({
-        pathname: path.join(__dirname, "views/InicioSesion.html"),
+        pathname: path.join(__dirname, "views/VentInicioSesion/InicioSesion.html"),
         protocol: "file",
         slashes: true
     }));
@@ -56,7 +56,7 @@ ipcMain.on('sesion:checar', (e, datosSesion) => {
         } else {
             if (res.aceptado === true) {
                 guardado.guardarSesion(usuario, contrasena);
-                pantallaPrincipal.loadURL(path.join(__dirname, "views/index.html"));
+                pantallaPrincipal.loadURL(path.join(__dirname, "views/VentIndex/index.html"));
                 const indexMenu = Menu.buildFromTemplate(templateIndexMenu);
                 pantallaPrincipal.setMenu(indexMenu);
                 comenzarLecturaSensores(usuario, contrasena);
@@ -92,7 +92,7 @@ function crearPantallaSinmSensor() {
     });
 
     pantallaSinm.loadURL(url.format({
-        pathname: path.join(__dirname, "views/sinmuSensor.html"),
+        pathname: path.join(__dirname, "views/VentSensor/sinmuSensor.html"),
         protocol: "file",
         slashes: true
     }));
