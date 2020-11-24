@@ -8,9 +8,11 @@ const { ClienteMQTT } = require("./ClienteMQTT");
 let pantallaPrincipal;
 let pantallaSinm;
 let mqtt=null;
+let sys_prendido=true;
 app.on("ready", () => {
     pantallaPrincipal = new BrowserWindow({
         show: false,
+        resizable: false,
         title: "Sistema de Seguridad",
         webPreferences: {
             nodeIntegration: true
@@ -72,7 +74,13 @@ ipcMain.on('proyecto:cerrar', () => {
 });
 
 ipcMain.on('proyecto:envioMQTT', (e, datos) => {
-    mqtt.mandarMsjSinmSensor(datos.id);
+    if (sys_prendido){
+        mqtt.mandarMsjSinmSensor(datos.id);
+    }
+});
+
+ipcMain.on('proyecto:interruptor', (e, datos) => {
+    sys_prendido=datos.valor;
 });
 
 function comenzarLecturaSensores(usuario, contrasena) {
@@ -83,8 +91,9 @@ function comenzarLecturaSensores(usuario, contrasena) {
 function crearPantallaSinmSensor() {
     pantallaSinm = new BrowserWindow({
         show: true,
+        resizable: false,
         title: "Sinmulacion Sensor",
-        width: 400,
+        width: 350,
         height: 370,
         webPreferences: {
             nodeIntegration: true
