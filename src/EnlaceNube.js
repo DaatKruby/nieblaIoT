@@ -4,11 +4,22 @@ const hostname='192.168.0.21';
 const port=4000;
 const pathEnvioDatos="/infoSensor";
 const pathInicioSesion="/iniciarSesion";
+const pathSensorAnomalo="/sensorAnomalo";
 
 const confEnviarDts = {
     hostname: hostname,
     port: port,
     path: pathEnvioDatos,
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}
+
+const confSensorAnomalo = {
+    hostname: hostname,
+    port: port,
+    path: pathSensorAnomalo,
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -23,6 +34,16 @@ const confInicioSesion = {
     headers: {
         'Content-Type': 'application/json'
     }
+}
+
+function enviarSensorAnomalo (id){
+    const req = http.request(confSensorAnomalo);
+    req.on('error', error => {
+        console.error(error);
+    })
+
+    req.write(JSON.stringify({id}));
+    req.end();
 }
 
 function enviarDatosSensor(json) {
@@ -74,3 +95,4 @@ function iniciarSesion(usuario, contrasena, callback) {
 module.exports.enviarDatosSensor = enviarDatosSensor;
 module.exports.convertirJSON = convertirJSON;
 module.exports.iniciarSesion = iniciarSesion;
+module.exports.enviarSensorAnomalo = enviarSensorAnomalo;
