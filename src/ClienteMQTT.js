@@ -50,8 +50,8 @@ class ClienteMQTT {
   }
 
   mandarMsjSinmSensor(id) {
-    var dtsTemp = Math.floor(Math.random() * (100));
-    var dtsHumedad = Math.floor(Math.random() * (100));
+    var dtsTemp = -1;
+    var dtsHumedad = Math.floor(Math.random(0,100));
     var lvBateria = 100;
     var json = JSON.stringify({
       "id": id,
@@ -104,11 +104,11 @@ class AseguramientoCalidad {
   }
 
   isExisteIdEnArray(id) {
-    this.sensores.forEach((sensor) => {
-      if (sensor.id === id) {
+    for (var i=0;i<this.sensores.length;i++){
+      if (this.sensores[i].id===id){
         return true;
       }
-    });
+    }
     return false;
   }
 }
@@ -117,11 +117,12 @@ class ObjSensor {
   constructor(id) {
     this.id = id;
     this.datos = [];
+    this.deshabilitarAlerta=false;
   }
 
   agregarDatos(dtsHum, dtsTemp) {
     var tamMaximoArr = 20;
-    if (this.datos.length >= 20) {
+    if (this.datos.length >= tamMaximoArr) {
       this.datos.unshift();
     }
     this.datos.push({ dtsHum, dtsTemp });
@@ -136,12 +137,11 @@ class ObjSensor {
     this.datos.forEach((dato) => {
       var temp = dato.dtsTemp;
       var hum = dato.dtsHum;
-      if ((temp < valNormalesTemp.min && temp > valNormalesTemp.max) ||
-        (hum < valNormalesHum.min && hum > valNormalesHum.max)) {
+      if ((temp < valNormalesTemp.min || temp > valNormalesTemp.max) ||
+        (hum < valNormalesHum.min || hum > valNormalesHum.max)) {
         numAnomalias += 1;
       }
     });
-
     return (numAnomalias > cantNormalAnomalias);
   }
 

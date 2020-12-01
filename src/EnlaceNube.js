@@ -37,6 +37,7 @@ const confInicioSesion = {
 }
 
 function enviarSensorAnomalo (id){
+    console.log(id);
     const req = http.request(confSensorAnomalo);
     req.on('error', error => {
         console.error(error);
