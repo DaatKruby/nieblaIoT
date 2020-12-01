@@ -57,17 +57,6 @@ function enviarDatosSensor(json) {
     req.end();
 }
 
-function convertirJSON(id, dtsTemp, dtsHum, lvBta, hora) {
-    var json = {
-        "id": id,
-        "dtsTemp": dtsTemp,
-        "dtsHum": dtsHum,
-        "lvBta": lvBta,
-        "hora": hora
-    };
-    return JSON.stringify(json);
-}
-
 function iniciarSesion(usuario, contrasena, callback) {
     const req = http.request(confInicioSesion);
     req.on('error', error => {
@@ -94,6 +83,5 @@ function iniciarSesion(usuario, contrasena, callback) {
 }
 
 module.exports.enviarDatosSensor = enviarDatosSensor;
-module.exports.convertirJSON = convertirJSON;
 module.exports.iniciarSesion = iniciarSesion;
 module.exports.enviarSensorAnomalo = enviarSensorAnomalo;

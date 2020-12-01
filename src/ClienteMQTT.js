@@ -18,15 +18,19 @@ class ClienteMQTT {
   start() {
     this.client.on('message', (topic, message) => {
       console.log("MQTT: ", message.toString())
-      const hora = Date.now();
+      const fecha = Date.now();
       message = JSON.parse(message);
 
       this.enviarDatosAnomalos(message);
 
-      const json = enlace.convertirJSON(
-        message.id, message.dtsTemp, message.dtsHum, message.lvBta, hora
-      );
-      enlace.enviarDatosSensor(json)
+      const json = {
+        id:message.id,
+        dtsMov:message.dtsMov,
+        dtsSnd:message.dtsSnd,
+        lvBateria:message.lvBateria,
+        fecha:fecha
+      };
+      enlace.enviarDatosSensor(JSON.stringify(json))
     });
 
     var cliente_func = this.client;
@@ -42,23 +46,14 @@ class ClienteMQTT {
   }
 
   enviarDatosAnomalos(message) {
-    const sensorAnomalo=this.calidad.agregarNuevoDato(message.id, message.dtsHum, message.dtsTemp);
+    const sensorAnomalo=this.calidad.agregarNuevoDato(message.id, message.dtsMov, message.dtsSnd);
     if (sensorAnomalo!=null){
       enlace.enviarSensorAnomalo(message.id);
     }
   }
 
-  mandarMsjSinmSensor(id) {
-    var dtsTemp = -1;
-    var dtsHumedad = Math.floor(Math.random(0,100));
-    var lvBateria = 100;
-    var json = JSON.stringify({
-      "id": id,
-      "dtsTemp": dtsTemp,
-      "dtsHum": dtsHumedad,
-      "lvBta": lvBateria
-    });
-    this.mandarMsj(this.canal, json);
+  mandarMsjSinmSensor(message) {
+    this.mandarMsj(this.canal, JSON.stringify(message));
   }
 
   mandarMsj(canal, mensaje) {
@@ -146,23 +141,3 @@ class ObjSensor {
 }
 
 module.exports.ClienteMQTT = ClienteMQTT;
-
-/*const mqtt = require('mqtt')
-const enlace = require("./EnlaceNube");
-
-var host = "localhost";
-var puerto = 1883;
-var client = mqtt.connect({ host: host, port: puerto })
-var canal = "sensor";
-
-client.on('connect', function () {
-  client.subscribe(canal, function (err) {
-    if (err) {
-      console.log(err);
-    }
-  })
-})
-
-client.on('message', function (topic, message) {
-  console.log("MQTT: ", message.toString())
-});*/

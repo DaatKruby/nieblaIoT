@@ -75,7 +75,7 @@ ipcMain.on('proyecto:cerrar', () => {
 
 ipcMain.on('proyecto:envioMQTT', (e, datos) => {
     if (sys_prendido){
-        mqtt.mandarMsjSinmSensor(datos.id);
+        mqtt.mandarMsjSinmSensor(datos);
     }
 });
 

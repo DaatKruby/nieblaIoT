@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="text-center">
@@ -21,11 +21,26 @@
                     <div class="form-group">
                         <label for="">Id del Sensor:</label>
                         <input value="0" id="idSensor" class="form-control" type="number">
+                        <hr>
+                        <label for="">Movimiento:</label>
+                        <input value="20" id="movSensor" class="form-control" type="number">
+                        <label for="">Sonido:</label>
+                        <input value="20" id="sndSensor" class="form-control" type="number">
+                        <label for="">Bateria:</label>
+                        <input value="100" id="bateriaSensor" class="form-control" type="number">
                     </div>
-                    <div class="form-group">
-                        <button id="btnEnviar" class="btn btn-dark btn-block">Enviar Datos</button>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <button id="btnEnviar" class="btn btn-dark btn-block">Enviar Datos</button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <button id="btnEnviarRnd" class="btn btn-success btn-block">Enviar Random</button>
+                            </div>
+                        </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
