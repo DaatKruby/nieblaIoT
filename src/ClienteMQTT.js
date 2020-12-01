@@ -21,8 +21,7 @@ class ClienteMQTT {
       const hora = Date.now();
       message = JSON.parse(message);
 
-      this.calidad.agregarNuevoDato(message);
-      this.enviarDatosAnomalos();
+      this.enviarDatosAnomalos(message);
 
       const json = enlace.convertirJSON(
         message.id, message.dtsTemp, message.dtsHum, message.lvBta, hora
@@ -42,11 +41,11 @@ class ClienteMQTT {
     });
   }
 
-  enviarDatosAnomalos() {
-    const sensoresAnomalos = this.calidad.getSensoresDefectuosos();
-    sensoresAnomalos.forEach((sensor) => {
-      enlace.enviarSensorAnomalo(sensor.id);
-    });
+  enviarDatosAnomalos(message) {
+    const sensorAnomalo=this.calidad.agregarNuevoDato(message.id, message.dtsHum, message.dtsTemp);
+    if (sensorAnomalo!=null){
+      enlace.enviarSensorAnomalo(message.id);
+    }
   }
 
   mandarMsjSinmSensor(id) {
@@ -71,14 +70,9 @@ class ClienteMQTT {
 class AseguramientoCalidad {
   constructor() {
     this.sensores = [];
-    this.sensoresDefectuosos = [];
   }
 
-  agregarNuevoDato(json_info_sensor) {
-    const id = json_info_sensor.id;
-    const dtsHum = json_info_sensor.dtsHum;
-    const dtsTemp = json_info_sensor.dtsTemp;
-
+  agregarNuevoDato(id, dtsMov, dtsSnd) {
     if (!this.isExisteIdEnArray(id)) {
       this.sensores.push(new ObjSensor(id));
     }
@@ -90,17 +84,16 @@ class AseguramientoCalidad {
         sensor = this.sensores[i]; break;
       }
     }
-    sensor.agregarDatos(dtsHum, dtsTemp);
+    sensor.agregarDatos(dtsMov, dtsSnd);
 
     if (sensor.isAnomalia()) {
-      this.sensoresDefectuosos.push(sensor);
+      if (sensor.alertaMandada){
+        return null;
+      } else{
+        sensor.deshabilitarAlerta();
+        return sensor;
+      }
     }
-  }
-
-  getSensoresDefectuosos() {
-    const regresar = [].concat(this.sensoresDefectuosos);
-    this.sensoresDefectuosos = [];
-    return regresar;
   }
 
   isExisteIdEnArray(id) {
@@ -117,7 +110,11 @@ class ObjSensor {
   constructor(id) {
     this.id = id;
     this.datos = [];
-    this.deshabilitarAlerta=false;
+    this.alertaMandada=false;
+  }
+
+  deshabilitarAlerta(){
+    this.alertaMandada=true;
   }
 
   agregarDatos(dtsHum, dtsTemp) {
