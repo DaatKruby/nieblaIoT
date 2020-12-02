@@ -12,33 +12,36 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="text-center">
-                    <img src="../../img/arduino-icon.jpg" alt="Sensor" width="150px" height="150px">
-                    <h3>Sinmulador de Sensor</h3>
+            <div class="col-sm-6">
+                <div class="d-flex align-items-center h-100 justify-content-center">
+                    <div class="text-center">
+                        <img src="../../img/arduino-icon.jpg" alt="Sensor" width="230px" height="230px">
+                        <hr>
+                        <h3>Sinmulador de Sensor</h3>
+                    </div>
                 </div>
-                <div class="mt-3">
-                    <div class="form-group">
-                        <label for="">Id del Sensor:</label>
+            </div>
+            <div class="col-sm-6 bg-light pt-4">
+                <div class="form-group">
+                    <label for="">Id del Sensor:</label>
                         <input value="0" id="idSensor" class="form-control" type="number">
                         <hr>
-                        <label for="">Movimiento:</label>
-                        <input value="20" id="movSensor" class="form-control" type="number">
-                        <label for="">Sonido:</label>
-                        <input value="20" id="sndSensor" class="form-control" type="number">
-                        <label for="">Bateria:</label>
-                        <input value="100" id="bateriaSensor" class="form-control" type="number">
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <button id="btnEnviar" class="btn btn-dark btn-block">Enviar Datos</button>
-                            </div>
+                    <label for="">Movimiento:</label>
+                    <input value="20" id="movSensor" class="form-control" type="number">
+                    <label for="">Sonido:</label>
+                    <input value="20" id="sndSensor" class="form-control" type="number">
+                    <label for="">Bateria:</label>
+                    <input value="100" id="bateriaSensor" class="form-control" type="number">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <button id="btnEnviar" class="btn btn-dark btn-block">Enviar Datos</button>
                         </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <button id="btnEnviarRnd" class="btn btn-success btn-block">Enviar Random</button>
-                            </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <button id="btnEnviarRnd" class="btn btn-success btn-block">Enviar Random</button>
                         </div>
                     </div>
                 </div>

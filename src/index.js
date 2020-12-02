@@ -93,8 +93,8 @@ function crearPantallaSinmSensor() {
         show: true,
         resizable: false,
         title: "Sinmulacion Sensor",
-        width: 350,
-        height: 370,
+        width: 650,
+        height: 410,
         webPreferences: {
             nodeIntegration: true
         }
