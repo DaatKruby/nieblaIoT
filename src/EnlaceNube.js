@@ -1,9 +1,9 @@
 const http = require('http');
 
-const hostname='192.168.0.21';
+const hostname='localhost';
 const port=4000;
-const pathEnvioDatos="/infoSensor";
-const pathInicioSesion="/iniciarSesion";
+const pathEnvioDatos="/api/sensorinfo/infoSensor";
+const pathInicioSesion="/api/sensorinfo/iniciarSesion";
 const pathSensorAnomalo="/sensorAnomalo";
 
 const confEnviarDts = {
@@ -53,10 +53,35 @@ function enviarDatosSensor(json) {
         console.error(error);
     })
 
+    req.on("response", (response) => {
+        var body = '';
+        response.on('data', function (chunk) {
+            body += chunk;
+        });
+        response.on('end', function () {
+            console.log(body);
+        });
+    });
+
     req.write(json);
     req.end();
 }
 
+<<<<<<< HEAD
+=======
+function convertirJSON(id, dataMov, dataSound, lvlBattery, date, activity) {
+    var json = {
+        id,
+        dataMov,
+        dataSound,
+        lvlBattery,
+        date,
+        activity,
+    };
+    return JSON.stringify(json);
+}
+
+>>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
 function iniciarSesion(usuario, contrasena, callback) {
     const req = http.request(confInicioSesion);
     req.on('error', error => {

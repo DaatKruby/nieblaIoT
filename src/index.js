@@ -18,7 +18,6 @@ app.on("ready", () => {
             nodeIntegration: true
         }
     });
-
     pantallaPrincipal.loadURL(url.format({
         pathname: path.join(__dirname, "views/VentInicioSesion/InicioSesion.html"),
         protocol: "file",
@@ -27,7 +26,6 @@ app.on("ready", () => {
 
     const mainMenu = Menu.buildFromTemplate(templateMenu);
     pantallaPrincipal.setMenu(mainMenu);
-
     pantallaPrincipal.center();
     pantallaPrincipal.on('closed', () => {
         app.quit();
@@ -51,8 +49,9 @@ ipcMain.on('sesion:checar', (e, datosSesion) => {
     const contrasena = datosSesion.contrasena;
 
     enlace.iniciarSesion(usuario, contrasena, (error, res) => {
+        console.log(res);
         res = JSON.parse(res);
-
+        
         if (error) {
             pantallaPrincipal.webContents.send("sesion:respuesta", { aceptado: false });
         } else {
@@ -75,7 +74,11 @@ ipcMain.on('proyecto:cerrar', () => {
 
 ipcMain.on('proyecto:envioMQTT', (e, datos) => {
     if (sys_prendido){
+<<<<<<< HEAD
         mqtt.mandarMsjSinmSensor(datos);
+=======
+        mqtt.mandarMsjSinmSensor(datos.id);
+>>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
     }
 });
 
@@ -93,8 +96,13 @@ function crearPantallaSinmSensor() {
         show: true,
         resizable: false,
         title: "Sinmulacion Sensor",
+<<<<<<< HEAD
         width: 650,
         height: 410,
+=======
+        width: 350,
+        height: 370,
+>>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
         webPreferences: {
             nodeIntegration: true
         }

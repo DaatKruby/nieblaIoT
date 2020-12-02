@@ -1,8 +1,7 @@
-const mqtt = require('mqtt')
+const mqtt = require("mqtt");
 const enlace = require("./EnlaceNube");
 
 class ClienteMQTT {
-
   constructor(usuario, contrasena) {
     this.usuario = usuario;
     this.contrasena = contrasena;
@@ -16,6 +15,7 @@ class ClienteMQTT {
   }
 
   start() {
+<<<<<<< HEAD
     this.client.on('message', (topic, message) => {
       console.log("MQTT: ", message.toString())
       const fecha = Date.now();
@@ -31,12 +31,30 @@ class ClienteMQTT {
         fecha:fecha
       };
       enlace.enviarDatosSensor(JSON.stringify(json))
+=======
+    this.client.on("message", function (topic, message) {
+      console.log("MQTT: ", message.toString());
+      message = JSON.parse(message);
+      const json = enlace.convertirJSON(
+        message.id,
+        message.dataMov,
+        message.dataSound,
+        message.lvlBattery,
+        message.date,
+        message.activity
+      );
+      enlace.enviarDatosSensor(json);
+>>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
     });
 
     var cliente_func = this.client;
     var canal_func = this.canal;
 
+<<<<<<< HEAD
     this.client.on('connect', () => {
+=======
+    this.client.on("connect", function () {
+>>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
       cliente_func.subscribe(canal_func, function (err) {
         if (err) {
           console.log(err);
@@ -45,6 +63,7 @@ class ClienteMQTT {
     });
   }
 
+<<<<<<< HEAD
   enviarDatosAnomalos(message) {
     const sensorAnomalo=this.calidad.agregarNuevoDato(message.id, message.dtsMov, message.dtsSnd);
     if (sensorAnomalo!=null){
@@ -54,18 +73,46 @@ class ClienteMQTT {
 
   mandarMsjSinmSensor(message) {
     this.mandarMsj(this.canal, JSON.stringify(message));
+=======
+  mandarMsjSinmSensor(id) {
+    var dataMov = Math.floor(Math.random() * 100);
+    var dataSound = Math.floor(Math.random() * 100);
+    var lvlBattery = 100;
+    let date = new Date();
+    let activity = isActividad(dataMov, dataSound);
+    var json = JSON.stringify({
+      id,
+      dataMov,
+      dataSound,
+      lvlBattery,
+      date,
+      activity,
+    });
+    this.mandarMsj(this.canal, json);
+>>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
   }
 
   mandarMsj(canal, mensaje) {
     this.client.publish(canal, mensaje);
   }
-
 }
 
+<<<<<<< HEAD
 class AseguramientoCalidad {
   constructor() {
     this.sensores = [];
   }
+=======
+const isActividad = (mov, sound) => {
+  {
+    var isActividad;
+    isActividad = (mov > 50 && sound > 50);
+     return isActividad;
+  }
+};
+
+module.exports.ClienteMQTT = ClienteMQTT;
+>>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
 
   agregarNuevoDato(id, dtsMov, dtsSnd) {
     if (!this.isExisteIdEnArray(id)) {
@@ -140,4 +187,10 @@ class ObjSensor {
 
 }
 
+<<<<<<< HEAD
 module.exports.ClienteMQTT = ClienteMQTT;
+=======
+client.on('message', function (topic, message) {
+  console.log("MQTT: ", message.toString())
+});*/
+>>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
