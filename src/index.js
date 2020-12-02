@@ -13,6 +13,7 @@ app.on("ready", () => {
     pantallaPrincipal = new BrowserWindow({
         show: false,
         resizable: false,
+        icon: path.join(__dirname, "img/iconoApp.png"),
         title: "Sistema de Seguridad",
         webPreferences: {
             nodeIntegration: true
@@ -90,10 +91,11 @@ function comenzarLecturaSensores(usuario, contrasena) {
 function crearPantallaSinmSensor() {
     pantallaSinm = new BrowserWindow({
         show: true,
+        icon: path.join(__dirname, "img/iconoApp.png"),
         resizable: false,
         title: "Sinmulacion Sensor",
         width: 650,
-        height: 410,
+        height: 419,
         webPreferences: {
             nodeIntegration: true
         }

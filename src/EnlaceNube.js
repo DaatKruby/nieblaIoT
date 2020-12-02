@@ -92,11 +92,6 @@ function iniciarSesion(usuario, contrasena, callback) {
     req.end();
 }
 
-function isDeteccionDeActividad(dtsMov, dtsSnd) {
-    return (dtsMov > 50 && dtsSnd > 50);
-}
-
 module.exports.enviarDatosSensor = enviarDatosSensor;
 module.exports.iniciarSesion = iniciarSesion;
 module.exports.enviarSensorAnomalo = enviarSensorAnomalo;
-module.exports.isDeteccionDeActividad = isDeteccionDeActividad;
