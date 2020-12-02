@@ -1,10 +1,10 @@
 const http = require('http');
 
-const hostname='localhost';
-const port=4000;
-const pathEnvioDatos="/api/sensorinfo/infoSensor";
-const pathInicioSesion="/api/sensorinfo/iniciarSesion";
-const pathSensorAnomalo="/sensorAnomalo";
+const hostname = 'localhost';
+const port = 4000;
+const pathEnvioDatos = "/api/sensorinfo/infoSensor";
+const pathInicioSesion = "/api/sensorinfo/iniciarSesion";
+const pathSensorAnomalo = "api/sensorinfo/sensorAnomalo";
 
 const confEnviarDts = {
     hostname: hostname,
@@ -36,14 +36,14 @@ const confInicioSesion = {
     }
 }
 
-function enviarSensorAnomalo (id){
+function enviarSensorAnomalo(id) {
     console.log(id);
     const req = http.request(confSensorAnomalo);
     req.on('error', error => {
         console.error(error);
     })
 
-    req.write(JSON.stringify({id}));
+    req.write(JSON.stringify({ id }));
     req.end();
 }
 
@@ -70,7 +70,7 @@ function enviarDatosSensor(json) {
 function iniciarSesion(usuario, contrasena, callback) {
     const req = http.request(confInicioSesion);
     req.on('error', error => {
-        let errorObj=new Error("Error de peticion a nube");
+        let errorObj = new Error("Error de peticion a nube");
         console.log(error);
         callback(errorObj, null);
     })
@@ -92,6 +92,11 @@ function iniciarSesion(usuario, contrasena, callback) {
     req.end();
 }
 
+function isDeteccionDeActividad(dtsMov, dtsSnd) {
+    return (dtsMov > 50 && dtsSnd > 50);
+}
+
 module.exports.enviarDatosSensor = enviarDatosSensor;
 module.exports.iniciarSesion = iniciarSesion;
 module.exports.enviarSensorAnomalo = enviarSensorAnomalo;
+module.exports.isDeteccionDeActividad = isDeteccionDeActividad;

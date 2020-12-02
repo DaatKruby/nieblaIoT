@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
         mandarInfoPorMQTT(idSensor, movSensor, sndSensor, bateriaSensor);
     }
 
-    function mandarInfoPorMQTT(id, dtsMov, dtsSnd, lvBateria) {
+    function mandarInfoPorMQTT(id, dataMov, dataSound, lvlBattery) {
         ipcRenderer.send('proyecto:envioMQTT', {
-            id, dtsMov, dtsSnd, lvBateria
+            id, dataMov, dataSound, lvlBattery
         });
     }
 });
