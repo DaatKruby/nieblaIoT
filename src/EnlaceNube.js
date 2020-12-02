@@ -67,21 +67,6 @@ function enviarDatosSensor(json) {
     req.end();
 }
 
-<<<<<<< HEAD
-=======
-function convertirJSON(id, dataMov, dataSound, lvlBattery, date, activity) {
-    var json = {
-        id,
-        dataMov,
-        dataSound,
-        lvlBattery,
-        date,
-        activity,
-    };
-    return JSON.stringify(json);
-}
-
->>>>>>> 8e7a4016ff329ebae1ca90c068498c17c8535073
 function iniciarSesion(usuario, contrasena, callback) {
     const req = http.request(confInicioSesion);
     req.on('error', error => {
