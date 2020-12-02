@@ -1,16 +1,9 @@
 const http = require('http');
 
-<<<<<<< HEAD
 const hostname='localhost';
 const port=4000;
 const pathEnvioDatos="/api/sensorinfo/infoSensor";
 const pathInicioSesion="/api/sensorinfo/iniciarSesion";
-=======
-const hostname='192.168.0.21';
-const port=4000;
-const pathEnvioDatos="/infoSensor";
-const pathInicioSesion="/iniciarSesion";
->>>>>>> 2bd64f4ae4ceeebbed0f6fe5d9c5d3c6a18607d4
 
 const confEnviarDts = {
     hostname: hostname,
@@ -38,7 +31,6 @@ function enviarDatosSensor(json) {
         console.error(error);
     })
 
-<<<<<<< HEAD
     req.on("response", (response) => {
         var body = '';
         response.on('data', function (chunk) {
@@ -49,13 +41,10 @@ function enviarDatosSensor(json) {
         });
     });
 
-=======
->>>>>>> 2bd64f4ae4ceeebbed0f6fe5d9c5d3c6a18607d4
     req.write(json);
     req.end();
 }
 
-<<<<<<< HEAD
 function convertirJSON(id, dataMov, dataSound, lvlBattery, date, activity) {
     var json = {
         id,
@@ -64,15 +53,6 @@ function convertirJSON(id, dataMov, dataSound, lvlBattery, date, activity) {
         lvlBattery,
         date,
         activity,
-=======
-function convertirJSON(id, dtsTemp, dtsHum, lvBta, hora) {
-    var json = {
-        "id": id,
-        "dtsTemp": dtsTemp,
-        "dtsHum": dtsHum,
-        "lvBta": lvBta,
-        "hora": hora
->>>>>>> 2bd64f4ae4ceeebbed0f6fe5d9c5d3c6a18607d4
     };
     return JSON.stringify(json);
 }

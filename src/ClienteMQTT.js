@@ -1,15 +1,7 @@
-<<<<<<< HEAD
 const mqtt = require("mqtt");
 const enlace = require("./EnlaceNube");
 
 class ClienteMQTT {
-=======
-const mqtt = require('mqtt')
-const enlace = require("./EnlaceNube");
-
-class ClienteMQTT {
-
->>>>>>> 2bd64f4ae4ceeebbed0f6fe5d9c5d3c6a18607d4
   constructor(usuario, contrasena) {
     this.usuario = usuario;
     this.contrasena = contrasena;
@@ -21,7 +13,6 @@ class ClienteMQTT {
   }
 
   start() {
-<<<<<<< HEAD
     this.client.on("message", function (topic, message) {
       console.log("MQTT: ", message.toString());
       message = JSON.parse(message);
@@ -40,27 +31,10 @@ class ClienteMQTT {
     var canal_func = this.canal;
 
     this.client.on("connect", function () {
-=======
-    this.client.on('message', function (topic, message) {
-      console.log("MQTT: ", message.toString())
-      const hora = Date.now();
-      message = JSON.parse(message);
-      const json = enlace.convertirJSON(
-        message.id, message.dtsTemp, message.dtsHum, message.lvBta, hora
-      );
-      enlace.enviarDatosSensor(json)
-    });
-
-    var cliente_func=this.client;
-    var canal_func=this.canal;
-
-    this.client.on('connect', function () {
->>>>>>> 2bd64f4ae4ceeebbed0f6fe5d9c5d3c6a18607d4
       cliente_func.subscribe(canal_func, function (err) {
         if (err) {
           console.log(err);
         }
-<<<<<<< HEAD
       });
     });
   }
@@ -78,26 +52,10 @@ class ClienteMQTT {
       lvlBattery,
       date,
       activity,
-=======
-      })
-    })
-  }
-
-  mandarMsjSinmSensor(id){
-    var dtsTemp=Math.floor(Math.random()*(100));
-    var dtsHumedad=Math.floor(Math.random()*(100));
-    var lvBateria=100;
-    var json=JSON.stringify({
-      "id": id,
-      "dtsTemp":dtsTemp,
-      "dtsHum": dtsHumedad,
-      "lvBta": lvBateria
->>>>>>> 2bd64f4ae4ceeebbed0f6fe5d9c5d3c6a18607d4
     });
     this.mandarMsj(this.canal, json);
   }
 
-<<<<<<< HEAD
   mandarMsj(canal, mensaje) {
     this.client.publish(canal, mensaje);
   }
@@ -110,13 +68,6 @@ const isActividad = (mov, sound) => {
      return isActividad;
   }
 };
-=======
-  mandarMsj(canal, mensaje){
-    this.client.publish(canal, mensaje);
-  }
-
-}
->>>>>>> 2bd64f4ae4ceeebbed0f6fe5d9c5d3c6a18607d4
 
 module.exports.ClienteMQTT = ClienteMQTT;
 
@@ -138,8 +89,4 @@ client.on('connect', function () {
 
 client.on('message', function (topic, message) {
   console.log("MQTT: ", message.toString())
-<<<<<<< HEAD
 });*/
-=======
-});*/
->>>>>>> 2bd64f4ae4ceeebbed0f6fe5d9c5d3c6a18607d4
