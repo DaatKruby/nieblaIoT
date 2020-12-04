@@ -1,4 +1,41 @@
 document.addEventListener('DOMContentLoaded', function () {
+    //GENERACION DATOS ALEATORIOS
+    const deteccionMov = 50;
+    const diffEntreSensores = 50;
+    const variacion = 3;
+    const posibilidadPositivo = 5;
+
+    function generarDatoAleatorio() {
+        var resp = null;
+        var posibilidad = null;
+        posibilidad = (numeroRandom(0, 100) <= posibilidadPositivo);
+        resp = (posibilidad) ? getDatoPositivo() : getDatoNegativo();
+        return resp;
+    }
+
+    function getDatoPositivo() {
+        var mov = numeroRandom(deteccionMov, 100);
+        var snd = mov + diffEntreSensores;
+
+        snd += numeroRandom(-variacion, variacion);
+
+        return {mov,snd};
+    }
+
+    function getDatoNegativo() {
+        var mov = numeroRandom(0, deteccionMov - 1);
+        var snd = mov + diffEntreSensores;
+
+        snd += numeroRandom(-variacion, variacion);
+
+        return {mov,snd};
+    }
+
+    function numeroRandom (min, max){
+        return Math.floor(Math.random()*(max-min)+min);
+    }
+
+    //FUNCIONALIDAD
     const { ipcRenderer } = require('electron');
     const btnEnviar = document.getElementById("btnEnviar");
     const btnEnviarRnd = document.getElementById("btnEnviarRnd");
@@ -19,9 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     btnEnviarRnd.onclick = function () {
+        const datoAleatorio=generarDatoAleatorio();
         var idSensor = parseInt(txtIdSensor.value);
-        var movSensor = Math.floor(Math.random() * (100 - 0 + 1) ) + 0;
-        var sndSensor = Math.floor(Math.random() * (100 - 0 + 1) ) + 0;
+        var movSensor = datoAleatorio.mov;
+        var sndSensor = datoAleatorio.snd;
         var bateriaSensor = 100;
 
         mandarInfoPorMQTT(idSensor, movSensor, sndSensor, bateriaSensor);

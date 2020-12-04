@@ -74,8 +74,13 @@ class ObjSensor {
     }
 }
 
-function isDeteccionDeActividad(dtsMov, dtsSnd) {
-    return (dtsMov > 50 && dtsSnd > 50);
+function isDeteccionDeActividad(mov, snd) {
+    const deteccionMov = 50;
+    const deteccionSnd = 90;
+
+    const positivoMov = (mov > deteccionMov);
+    const positivoSnd = (snd > deteccionSnd);
+    return (positivoMov && positivoSnd);
 }
 
 module.exports.AseguramientoCalidad = AseguramientoCalidad;
