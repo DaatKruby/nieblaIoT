@@ -78,8 +78,8 @@ function isDeteccionDeActividad(mov, snd) {
     const deteccionMov = 50;
     const deteccionSnd = 90;
 
-    const positivoMov = (mov > deteccionMov);
-    const positivoSnd = (snd > deteccionSnd);
+    const positivoMov = (mov >= deteccionMov);
+    const positivoSnd = (snd >= deteccionSnd);
     return (positivoMov && positivoSnd);
 }
 
