@@ -7,8 +7,7 @@ const { ClienteMQTT } = require("./ClienteMQTT");
 
 let pantallaPrincipal;
 let pantallaSinm;
-let mqtt=null;
-let sys_prendido=true;
+let mqtt = null;
 app.on("ready", () => {
     pantallaPrincipal = new BrowserWindow({
         show: false,
@@ -52,7 +51,7 @@ ipcMain.on('sesion:checar', (e, datosSesion) => {
     enlace.iniciarSesion(usuario, contrasena, (error, res) => {
         console.log(res);
         res = JSON.parse(res);
-        
+
         if (error) {
             pantallaPrincipal.webContents.send("sesion:respuesta", { aceptado: false });
         } else {
@@ -74,13 +73,11 @@ ipcMain.on('proyecto:cerrar', () => {
 });
 
 ipcMain.on('proyecto:envioMQTT', (e, datos) => {
-    if (sys_prendido){
-        mqtt.mandarMsjSinmSensor(datos);
-    }
+    mqtt.mandarMsjSinmSensor(datos);
 });
 
 ipcMain.on('proyecto:interruptor', (e, datos) => {
-    sys_prendido=datos.valor;
+    mqtt.setModoActivado(datos.valor);
 });
 
 function comenzarLecturaSensores(usuario, contrasena) {

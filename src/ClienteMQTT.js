@@ -1,6 +1,6 @@
 const mqtt = require("mqtt");
 const enlace = require("./EnlaceNube");
-const {AseguramientoCalidad, isDeteccionDeActividad}=require("./Sensor");
+const { AseguramientoCalidad, isDeteccionDeActividad } = require("./Sensor");
 
 class ClienteMQTT {
   constructor(usuario, contrasena) {
@@ -13,24 +13,27 @@ class ClienteMQTT {
     this.puerto = 1883;
     this.canal = "sensor";
     this.client = mqtt.connect({ host: this.host, port: this.puerto });
+    this.activado = true;
   }
 
   start() {
     this.client.on('message', (topic, message) => {
-      console.log("MQTT: ", message.toString())
-      message = JSON.parse(message);
+      if (this.activado) {
+        console.log("MQTT: ", message.toString())
+        message = JSON.parse(message);
 
-      this.enviarDatosAnomalos(message);
+        this.enviarDatosAnomalos(message);
 
-      const json = {
-        id:message.id,
-        dataMov:message.dataMov,
-        dataSound:message.dataSound,
-        lvlBattery:message.lvlBattery,
-        date:new Date(),
-        activity:isDeteccionDeActividad(message.dataMov, message.dataSound)
-      };
-      enlace.enviarDatosSensor(JSON.stringify(json))
+        const json = {
+          id: message.id,
+          dataMov: message.dataMov,
+          dataSound: message.dataSound,
+          lvlBattery: message.lvlBattery,
+          date: new Date(),
+          activity: isDeteccionDeActividad(message.dataMov, message.dataSound)
+        };
+        enlace.enviarDatosSensor(JSON.stringify(json))
+      }
     });
 
     var cliente_func = this.client;
@@ -45,9 +48,13 @@ class ClienteMQTT {
     });
   }
 
+  setModoActivado(activado) {
+    this.activado = activado;
+  }
+
   enviarDatosAnomalos(message) {
-    const sensorAnomalo=this.calidad.agregarNuevoDato(message.id, message.dataMov, message.dataSound);
-    if (sensorAnomalo!=null){
+    const sensorAnomalo = this.calidad.agregarNuevoDato(message.id, message.dataMov, message.dataSound);
+    if (sensorAnomalo != null) {
       enlace.enviarSensorAnomalo(message.id);
     }
   }
